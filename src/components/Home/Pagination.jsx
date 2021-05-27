@@ -40,9 +40,9 @@ const Pagination = () => {
 
   if (pageNumber <= 2) {
     firstIndex = 1;
-    lastIndex = 5;
+    lastIndex = 5 > totalPage ? totalPage : 5;
   } else if (totalPage - pageNumber <= 2) {
-    firstIndex = totalPage - 4;
+    firstIndex = totalPage <= 4 ? 1 : totalPage - 4;
     lastIndex = totalPage;
   } else {
     firstIndex = pageNumber - 2;
