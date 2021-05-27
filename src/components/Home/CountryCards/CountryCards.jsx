@@ -13,8 +13,7 @@ const CountryCardsWrapper = styled(Container)`
 
 const CountryCards = (props) => {
   const [paginatedCountries, setPaginatedCountries] = useState([]);
-  const [filteredCountries, setFilteredCountries] =
-    useContext(CountriesContext);
+  const [, setFilteredCountries] = useContext(CountriesContext);
   const [countries, setCountries] = useState([]);
 
   const location = useLocation();
@@ -44,7 +43,7 @@ const CountryCards = (props) => {
     if (pageNumber) data = data.slice(pageNumber * 8 - 8, pageNumber * 8);
     else data = data.slice(0, 8);
     setPaginatedCountries(data);
-  }, [pageNumber, countries, region]);
+  }, [pageNumber, countries, region, setFilteredCountries]);
 
   return (
     <CountryCardsWrapper>

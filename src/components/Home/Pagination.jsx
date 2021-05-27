@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { useHistory, useLocation } from "react-router";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { CountriesContext } from "../../store/CountriesContext";
 
@@ -34,27 +33,24 @@ const Pagination = () => {
   const history = useHistory();
 
   const [countries] = useContext(CountriesContext);
-  console.log(countries);
   const totalPage = Math.ceil(countries.length / 8);
 
   let firstIndex;
   let lastIndex;
-  console.log(totalPage);
+
   if (pageNumber <= 2) {
     firstIndex = 1;
     lastIndex = 5;
   } else if (totalPage - pageNumber <= 2) {
     firstIndex = totalPage - 4;
     lastIndex = totalPage;
-    // console.log("Second");
   } else {
     firstIndex = pageNumber - 2;
     lastIndex = pageNumber + 2;
   }
-  // console.log(firstIndex, lastIndex);
+
   let pages = [];
   for (let i = firstIndex; i <= lastIndex; i++) pages.push(i);
-  console.log(pages);
   const handlePaginationChange = (event) => {
     let search_string = `page_no=${event.target.innerText}`;
 
