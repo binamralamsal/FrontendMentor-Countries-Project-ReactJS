@@ -17,8 +17,11 @@ const PageLink = styled.p`
   margin: 5px;
   text-decoration: none;
   box-shadow: var(--box-shadow);
-  color: blue;
-  cursor: pointer;
+
+  &.active {
+    cursor: pointer;
+    color: blue;
+  }
 
   &:hover {
     background: var(--light-mode-background);
@@ -28,7 +31,7 @@ const PageLink = styled.p`
 const Pagination = () => {
   const location = useLocation();
   const queries = new URLSearchParams(location.search);
-  const pageNumber = +queries.get("page_no");
+  const pageNumber = +queries.get("page_no") || 1;
   const region = queries.get("region");
   const history = useHistory();
 
@@ -51,19 +54,11 @@ const Pagination = () => {
 
   let pages = [];
   for (let i = firstIndex; i <= lastIndex; i++) pages.push(i);
-  const handlePaginationChange = (event) => {
-    let search_string = `page_no=${event.target.innerText}`;
 
-    if (region) search_string += `&region=${region}`;
-    history.push({
-      pathname: "/",
-      search: search_string,
-    });
-  };
-
-  const handleFirstPageClick = (pageNumber) => {
+  const handlePaginationChange = (pageNumber) => {
     let search_string = `page_no=${pageNumber}`;
 
+    if (pageNumber === 1) search_string = "";
     if (region) search_string += `&region=${region}`;
     history.push({
       pathname: "/",
@@ -73,15 +68,30 @@ const Pagination = () => {
 
   return (
     <PaginationWrapper>
-      <PageLink onClick={() => handleFirstPageClick(1)}>&lt;&lt;</PageLink>
+      {pageNumber !== 1 && (
+        <PageLink onClick={() => handlePaginationChange(1)} className="active">
+          &lt;&lt;
+        </PageLink>
+      )}
       {pages.map((page) => (
-        <PageLink key={page} onClick={handlePaginationChange}>
+        <PageLink
+          key={page}
+          onClick={
+            pageNumber !== page ? () => handlePaginationChange(page) : () => {}
+          }
+          className={`${pageNumber !== page && "active"}`}
+        >
           {page}
         </PageLink>
       ))}{" "}
-      <PageLink onClick={() => handleFirstPageClick(totalPage)}>
-        &gt;&gt;
-      </PageLink>
+      {pageNumber !== totalPage && (
+        <PageLink
+          onClick={() => handlePaginationChange(totalPage)}
+          className="active"
+        >
+          &gt;&gt;
+        </PageLink>
+      )}
     </PaginationWrapper>
   );
 };
