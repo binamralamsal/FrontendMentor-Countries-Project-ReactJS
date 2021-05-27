@@ -1,0 +1,22 @@
+:root {
+  --dark-mode-elements: hsl(209, 23%, 22%);
+  --dark-mode-background: hsl(207, 26%, 17%);
+  --light-mode-text: hsl(200, 15%, 8%);
+  --light-mode-input: hsl(0, 0%, 52%);
+  --light-mode-background: hsl(0, 0%, 98%);
+  --light-mode-elements: hsl(0, 0%, 100%);
+  --main-color: white;
+  --box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+body {
+  color: var(--light-mode-text);
+  background: var(--light-mode-background);
+}
