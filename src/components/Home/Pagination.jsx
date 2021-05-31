@@ -29,11 +29,10 @@ const PageLink = styled.p`
 `;
 
 const Pagination = () => {
+  const history = useHistory();
   const location = useLocation();
   const queries = new URLSearchParams(location.search);
   const pageNumber = +queries.get("page_no") || 1;
-  const region = queries.get("region");
-  const history = useHistory();
 
   const [countries] = useContext(CountriesContext);
   const totalPage = Math.ceil(countries.length / 8);
@@ -56,14 +55,8 @@ const Pagination = () => {
   for (let i = firstIndex; i <= lastIndex; i++) pages.push(i);
 
   const handlePaginationChange = (pageNumber) => {
-    let search_string = `page_no=${pageNumber}`;
-
-    if (pageNumber === 1) search_string = "";
-    if (region) search_string += `&region=${region}`;
-    history.push({
-      pathname: "/",
-      search: search_string,
-    });
+    queries.set("page_no", pageNumber);
+    history.push({ pathName: "/", search: queries.toString() });
   };
 
   return (

@@ -1,3 +1,4 @@
+import { useHistory, useLocation } from "react-router";
 import styled from "styled-components";
 
 const FormInputWrapper = styled.form`
@@ -28,10 +29,28 @@ const FormInputWrapper = styled.form`
 `;
 
 const FormInput = () => {
+  const history = useHistory();
+  const location = useLocation();
+
+  const queries = new URLSearchParams(location.search);
+  const searchInput = queries.get("search") || "";
+
+  const handleSearchInputChange = (event) => {
+    if (event.target.value) queries.set("search", event.target.value);
+    else queries.delete("search");
+
+    history.push({ pathName: "/", search: queries.toString() });
+  };
+
   return (
     <FormInputWrapper>
       <i className="fas fa-search"></i>
-      <input type="text" placeholder="Search for a country..." />
+      <input
+        type="text"
+        placeholder="Search for a country..."
+        value={searchInput}
+        onChange={handleSearchInputChange}
+      />
     </FormInputWrapper>
   );
 };

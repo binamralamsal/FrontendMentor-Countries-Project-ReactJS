@@ -53,7 +53,6 @@ const RegionSelect = () => {
 
   const queries = new URLSearchParams(location.search);
   const selected = queries.get("region");
-  const page_no = queries.get("page_no");
 
   const node = useRef();
 
@@ -77,13 +76,8 @@ const RegionSelect = () => {
   }, [opened]);
 
   const handleSelectionChange = (event) => {
-    let search_string = `region=${event.target.innerText}`;
-
-    if (page_no) search_string += `&page_no=${page_no}`;
-    history.push({
-      pathname: "/",
-      search: search_string,
-    });
+    queries.set("region", event.target.innerText);
+    history.push({ pathName: "/", search: queries.toString() });
   };
 
   return (
