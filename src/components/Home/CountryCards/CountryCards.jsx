@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
+import { CountriesContext } from "../../../store/CountriesContext";
 import Container from "../../../UI/Container";
 import CountryCard from "./CountryCard";
-import { CountriesContext } from "../../../store/CountriesContext";
 
 const CountryCardsWrapper = styled(Container)`
   display: grid;
@@ -11,43 +11,25 @@ const CountryCardsWrapper = styled(Container)`
   gap: 60px;
 `;
 
-const CountryCards = (props) => {
+const CountryCards = () => {
   const [paginatedCountries, setPaginatedCountries] = useState([]);
-  const [, setFilteredCountries] = useContext(CountriesContext);
-  const [countries, setCountries] = useState([]);
+  const countries = useContext(CountriesContext);
 
   const location = useLocation();
   const queries = new URLSearchParams(location.search);
   const pageNumber = queries.get("page_no");
-  const region = queries.get("region");
-
-  useEffect(() => {
-    const fetchCountries = async () => {
-      const response = await fetch(
-        "https://restcountries.eu/rest/v2/all?fields=name;population;region;capital;flag;"
-      );
-      const data = await response.json();
-      setCountries(data);
-    };
-
-    fetchCountries();
-  }, [setCountries]);
 
   useEffect(() => {
     let data = [...countries];
-    if (region) {
-      data = countries.filter((country) => country.region === region);
-    }
-    setFilteredCountries(data);
 
     if (pageNumber) data = data.slice(pageNumber * 8 - 8, pageNumber * 8);
     else data = data.slice(0, 8);
     setPaginatedCountries(data);
-  }, [pageNumber, countries, region, setFilteredCountries]);
+  }, [pageNumber, countries]);
 
   return (
     <CountryCardsWrapper>
-      {paginatedCountries.slice(0, 8).map((country) => (
+      {paginatedCountries.map((country) => (
         <CountryCard
           key={country.name}
           country={{

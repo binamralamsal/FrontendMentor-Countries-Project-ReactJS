@@ -34,7 +34,7 @@ const Pagination = () => {
   const queries = new URLSearchParams(location.search);
   const pageNumber = +queries.get("page_no") || 1;
 
-  const [countries] = useContext(CountriesContext);
+  const countries = useContext(CountriesContext);
   const totalPage = Math.ceil(countries.length / 8);
 
   let firstIndex;

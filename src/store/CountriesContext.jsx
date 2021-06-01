@@ -1,12 +1,44 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { useLocation } from "react-router";
 
 export const CountriesContext = createContext();
 
 const CountriesProvider = ({ children }) => {
   const [countries, setCountries] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState([]);
+
+  const location = useLocation();
+  const queries = new URLSearchParams(location.search);
+  const region = queries.get("region");
+  const searchInput = queries.get("search") || "";
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      const response = await fetch(
+        "https://restcountries.eu/rest/v2/all?fields=name;population;region;capital;flag;"
+      );
+      const data = await response.json();
+      setCountries(data);
+    };
+
+    fetchCountries();
+  }, []);
+
+  useEffect(() => {
+    let data = countries.filter((country) => {
+      const partOfRegion = region ? country.region === region : true;
+      const partOfSearch = searchInput
+        ? country.name.search(searchInput) !== -1
+        : true;
+
+      return partOfRegion && partOfSearch;
+    });
+
+    setFilteredCountries(data);
+  }, [countries, region, searchInput]);
 
   return (
-    <CountriesContext.Provider value={[countries, setCountries]}>
+    <CountriesContext.Provider value={filteredCountries}>
       {children}
     </CountriesContext.Provider>
   );
