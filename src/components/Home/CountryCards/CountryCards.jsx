@@ -11,9 +11,14 @@ const CountryCardsWrapper = styled(Container)`
   gap: 60px;
 `;
 
+const ResultsInfo = styled.p`
+  text-align: center;
+  margin-top: 40px;
+`;
+
 const CountryCards = () => {
   const [paginatedCountries, setPaginatedCountries] = useState([]);
-  const countries = useContext(CountriesContext);
+  const [countries] = useContext(CountriesContext);
 
   const location = useLocation();
   const queries = new URLSearchParams(location.search);
@@ -28,20 +33,23 @@ const CountryCards = () => {
   }, [pageNumber, countries]);
 
   return (
-    <CountryCardsWrapper>
-      {paginatedCountries.map((country) => (
-        <CountryCard
-          key={country.name}
-          country={{
-            name: country.name,
-            population: country.population,
-            region: country.region,
-            capital: country.capital,
-            flag: country.flag,
-          }}
-        />
-      ))}
-    </CountryCardsWrapper>
+    <>
+      <CountryCardsWrapper>
+        {paginatedCountries.map((country) => (
+          <CountryCard
+            key={country.name}
+            country={{
+              name: country.name,
+              population: country.population,
+              region: country.region,
+              capital: country.capital,
+              flag: country.flag,
+            }}
+          />
+        ))}
+      </CountryCardsWrapper>
+      <ResultsInfo>{countries.length} results found</ResultsInfo>
+    </>
   );
 };
 

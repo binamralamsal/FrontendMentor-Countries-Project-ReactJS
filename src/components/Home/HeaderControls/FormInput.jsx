@@ -1,7 +1,7 @@
 import { useHistory, useLocation } from "react-router";
 import styled from "styled-components";
 
-const FormInputWrapper = styled.form`
+const FormInputWrapper = styled.div`
   color: var(--light-mode-input);
   background: var(--main-color);
   box-shadow: var(--box-shadow);

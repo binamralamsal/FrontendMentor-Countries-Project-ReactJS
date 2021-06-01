@@ -5,6 +5,7 @@ export const CountriesContext = createContext();
 
 const CountriesProvider = ({ children }) => {
   const [countries, setCountries] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [filteredCountries, setFilteredCountries] = useState([]);
 
   const location = useLocation();
@@ -18,7 +19,9 @@ const CountriesProvider = ({ children }) => {
         "https://restcountries.eu/rest/v2/all?fields=name;population;region;capital;flag;"
       );
       const data = await response.json();
+
       setCountries(data);
+      setIsLoading(false);
     };
 
     fetchCountries();
@@ -38,7 +41,7 @@ const CountriesProvider = ({ children }) => {
   }, [countries, region, searchInput]);
 
   return (
-    <CountriesContext.Provider value={filteredCountries}>
+    <CountriesContext.Provider value={[filteredCountries, isLoading]}>
       {children}
     </CountriesContext.Provider>
   );

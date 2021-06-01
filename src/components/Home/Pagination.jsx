@@ -34,7 +34,7 @@ const Pagination = () => {
   const queries = new URLSearchParams(location.search);
   const pageNumber = +queries.get("page_no") || 1;
 
-  const countries = useContext(CountriesContext);
+  const [countries] = useContext(CountriesContext);
   const totalPage = Math.ceil(countries.length / 8);
 
   let firstIndex;
@@ -55,7 +55,8 @@ const Pagination = () => {
   for (let i = firstIndex; i <= lastIndex; i++) pages.push(i);
 
   const handlePaginationChange = (pageNumber) => {
-    queries.set("page_no", pageNumber);
+    if (pageNumber !== 1) queries.set("page_no", pageNumber);
+    else queries.delete("page_no");
     history.push({ pathName: "/", search: queries.toString() });
   };
 
