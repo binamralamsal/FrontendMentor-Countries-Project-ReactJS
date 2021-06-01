@@ -38,7 +38,7 @@ const Flag = styled.img`
 
 const CountryCard = ({ country }) => {
   return (
-    <Card to={`/${slugify(country.name, { replacement: "%20" })}`}>
+    <Card to={`/${country.name.toLowerCase().split(" ").join("%20")}`}>
       <Flag src={country.flag} alt={`Flag of ${country.name}`} />
       <CountryInfo>
         <CountryTitle>{country.name}</CountryTitle>
