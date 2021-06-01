@@ -72,6 +72,7 @@ const CountryDetails = () => {
   useEffect(() => {
     const fetchCountries = async () => {
       setIsLoading(true);
+      setBorders([]);
       const response = await fetch(
         `https://restcountries.eu/rest/v2/name/${params.name}?fullText=true&fields=name;population;region;subregion;capital;topLevelDomain;currencies;languages;borders;flag;nativeName;`
       );
