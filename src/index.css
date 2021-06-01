@@ -5,8 +5,12 @@
   --light-mode-input: hsl(0, 0%, 52%);
   --light-mode-background: hsl(0, 0%, 98%);
   --light-mode-elements: hsl(0, 0%, 100%);
-  --main-color: white;
+
+  --text-color: var(--light-mode-text);
+  --background: var(--light-mode-background);
+  --elements: var(--light-mode-elements);
   --box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  --input-color: var(--light-mode-input);
 }
 
 * {
@@ -17,6 +21,14 @@
 }
 
 body {
-  color: var(--light-mode-text);
-  background: var(--light-mode-background);
+  color: var(--text-color);
+  background-color: var(--background);
+  transition: all 0.2s;
+}
+
+body.dark {
+  --text-color: white;
+  --input-color: white;
+  --background: var(--dark-mode-background);
+  --elements: var(--dark-mode-elements);
 }

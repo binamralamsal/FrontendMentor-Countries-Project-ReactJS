@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Container from "../../UI/Container";
+import ThemeToggler from "./ThemeToggler";
 
 const NavbarContainer = styled.div`
   box-shadow: var(--box-shadow);
-  background: var(--main-color);
+  background-color: var(--elements);
 `;
 
 const NavbarContent = styled(Container)`
@@ -16,9 +17,9 @@ const NavbarContent = styled(Container)`
 
 const NavLogo = styled(Link)`
   text-decoration: none;
-  color: initial;
   font-weight: 800;
   font-size: 20px;
+  color: var(--text-color);
 `;
 
 const ThemeSwitcher = styled.div`
@@ -30,7 +31,9 @@ const Navbar = () => {
     <NavbarContainer>
       <NavbarContent>
         <NavLogo to="/">Where in the world?</NavLogo>
-        <ThemeSwitcher>Dark Mode</ThemeSwitcher>
+        <ThemeSwitcher>
+          <ThemeToggler />
+        </ThemeSwitcher>
       </NavbarContent>
     </NavbarContainer>
   );

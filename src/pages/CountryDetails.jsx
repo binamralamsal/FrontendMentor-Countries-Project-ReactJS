@@ -12,16 +12,16 @@ const CountryDetailsContainer = styled(Container)`
 `;
 
 const Button = styled(Link)`
-  background: var(--main-color);
+  background-color: var(--elements);
   padding: 5px 30px;
   text-decoration: none;
   box-shadow: var(--box-shadow);
-  color: initial;
+  color: var(--text-color);
   border-radius: 5px;
   transition: 0.2s background-color;
 
   &:hover {
-    background-color: var(--light-mode-background);
+    background-color: var(--background);
   }
 `;
 

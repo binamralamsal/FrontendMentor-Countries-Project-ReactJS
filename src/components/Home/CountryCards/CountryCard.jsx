@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Card = styled(Link)`
-  background: var(--main-color);
+  background-color: var(--elements);
   box-shadow: var(--box-shadow);
   display: flex;
   flex-direction: column;
   border-radius: 5px;
   overflow: hidden;
   text-decoration: none;
-  color: initial;
+  color: var(--text-color);
 `;
 
 const CountryInfo = styled.div`

@@ -12,19 +12,21 @@ const PaginationWrapper = styled.div`
 `;
 
 const PageLink = styled.p`
-  background: white;
+  background-color: var(--elements);
   padding: 10px;
   margin: 5px;
   text-decoration: none;
   box-shadow: var(--box-shadow);
+  transition: 0.2s ease;
+  color: var(--light-mode-input);
 
   &.active {
     cursor: pointer;
-    color: blue;
+    color: var(--text-color);
   }
 
   &:hover {
-    background: var(--light-mode-background);
+    background-color: var(--background);
   }
 `;
 
@@ -78,7 +80,7 @@ const Pagination = () => {
           {page}
         </PageLink>
       ))}{" "}
-      {pageNumber !== totalPage && (
+      {pageNumber !== totalPage && countries.length !== 0 && (
         <PageLink
           onClick={() => handlePaginationChange(totalPage)}
           className="active"

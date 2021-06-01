@@ -2,8 +2,7 @@ import { useHistory, useLocation } from "react-router";
 import styled from "styled-components";
 
 const FormInputWrapper = styled.div`
-  color: var(--light-mode-input);
-  background: var(--main-color);
+  background-color: var(--elements);
   box-shadow: var(--box-shadow);
   border-radius: 5px;
   width: 500px;
@@ -16,6 +15,8 @@ const FormInputWrapper = styled.div`
     border: none;
     width: calc(100% - 30px);
     height: 100%;
+    background-color: var(--elements);
+    color: var(--input-color);
   }
 
   & i {
@@ -24,7 +25,7 @@ const FormInputWrapper = styled.div`
 
   & ::placeholder {
     font-weight: 600;
-    color: var(--light-mode-input);
+    color: var(--input-color);
   }
 
   @media screen and (max-width: 768px) {

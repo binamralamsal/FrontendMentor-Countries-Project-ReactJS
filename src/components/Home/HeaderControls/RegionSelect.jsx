@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useHistory, useLocation } from "react-router";
 
 const RegionSelectWrapper = styled.div`
-  background: var(--main-color);
+  background-color: var(--elements);
   box-shadow: var(--box-shadow);
   border-radius: 5px;
   padding: 20px;
@@ -27,7 +27,7 @@ const RegionSelectWrapper = styled.div`
 const SelectItems = styled.div`
   top: 110%;
   position: absolute;
-  background: var(--main-color);
+  background-color: var(--elements);
   width: 100%;
   border-radius: 5px;
   box-shadow: var(--box-shadow);
@@ -49,7 +49,7 @@ const SelectItems = styled.div`
   }
 
   & li:hover {
-    background: var(--light-mode-background);
+    background-color: var(--background);
   }
 `;
 
