@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import slugify from "slugify";
 import styled from "styled-components";
 
 const Card = styled(Link)`
