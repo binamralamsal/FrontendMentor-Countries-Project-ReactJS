@@ -73,7 +73,7 @@ const InfoContainer = styled.div`
 const BorderCountries = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 60px;
+  margin-top: 30px;
   gap: 10px;
   flex-wrap: wrap;
 `;
@@ -131,7 +131,9 @@ const CountryDetails = () => {
 
   return (
     <CountryDetailsContainer>
-      <BackButton to="/">Back</BackButton>
+      <BackButton to="/">
+        <i class="fas fa-arrow-left"></i> Back
+      </BackButton>
       {!isLoading ? (
         <DetailsContainer>
           <Flag src={country.flag} alt={`${country.name}'s flag`}></Flag>
@@ -139,12 +141,12 @@ const CountryDetails = () => {
             <CountryTitle>{country.name}</CountryTitle>
 
             <InfoContainer>
-              <div>
+              <div style={{ marginBottom: "30px" }}>
                 <p>
                   <InfoTopic>Native Name:</InfoTopic> {country.nativeName}
                 </p>
                 <p>
-                  <InfoTopic>Population:</InfoTopic>
+                  <InfoTopic>Population: </InfoTopic>
                   {country.population.toLocaleString()}
                 </p>
                 <p>
@@ -160,7 +162,7 @@ const CountryDetails = () => {
 
               <div>
                 <p>
-                  <InfoTopic>Top Level Domain:</InfoTopic>
+                  <InfoTopic>Top Level Domain: </InfoTopic>
                   {country.topLevelDomain}
                 </p>
                 <p>
