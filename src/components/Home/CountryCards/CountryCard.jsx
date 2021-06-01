@@ -27,9 +27,9 @@ const InfoTopic = styled.span`
 `;
 
 const Flag = styled.img`
-  height: 150px;
+  height: 180px;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 const CountryCard = ({ country }) => {

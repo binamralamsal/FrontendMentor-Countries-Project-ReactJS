@@ -10,7 +10,7 @@ const NavbarContainer = styled.div`
 const NavbarContent = styled(Container)`
   display: flex;
   justify-content: space-between;
-  padding: 20px 0;
+  padding: 20px;
 `;
 
 const NavLogo = styled(Link)`

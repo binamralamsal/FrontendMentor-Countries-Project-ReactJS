@@ -26,6 +26,10 @@ const FormInputWrapper = styled.div`
     font-weight: 600;
     color: var(--light-mode-input);
   }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const FormInput = () => {

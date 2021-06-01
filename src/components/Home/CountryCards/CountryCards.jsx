@@ -7,8 +7,24 @@ import CountryCard from "./CountryCard";
 
 const CountryCardsWrapper = styled(Container)`
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: repeat(4, 1fr);
   gap: 60px;
+
+  @media screen and (max-width: 1200px) {
+    gap: 20px;
+  }
+
+  @media screen and (max-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const ResultsInfo = styled.p`

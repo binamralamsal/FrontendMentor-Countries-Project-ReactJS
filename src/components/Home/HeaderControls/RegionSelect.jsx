@@ -14,6 +14,10 @@ const RegionSelectWrapper = styled.div`
   cursor: pointer;
   position: relative;
   user-select: none;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const SelectItems = styled.div`

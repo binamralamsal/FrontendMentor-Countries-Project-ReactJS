@@ -31,7 +31,7 @@ const CountriesProvider = ({ children }) => {
     let data = countries.filter((country) => {
       const partOfRegion = region ? country.region === region : true;
       const partOfSearch = searchInput
-        ? country.name.search(searchInput) !== -1
+        ? country.name.toLowerCase().search(searchInput.toLowerCase()) !== -1
         : true;
 
       return partOfRegion && partOfSearch;
