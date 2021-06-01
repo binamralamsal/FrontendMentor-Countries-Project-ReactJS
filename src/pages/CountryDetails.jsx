@@ -132,7 +132,7 @@ const CountryDetails = () => {
   return (
     <CountryDetailsContainer>
       <BackButton to="/">
-        <i class="fas fa-arrow-left"></i> Back
+        <i className="fas fa-arrow-left"></i> Back
       </BackButton>
       {!isLoading ? (
         <DetailsContainer>

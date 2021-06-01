@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import slugify from "slugify";
 import styled from "styled-components";
 
 const Card = styled(Link)`
@@ -37,7 +38,7 @@ const Flag = styled.img`
 
 const CountryCard = ({ country }) => {
   return (
-    <Card to={`/${country.name.toLowerCase()}`}>
+    <Card to={`/${slugify(country.name, { replacement: "%20" })}`}>
       <Flag src={country.flag} alt={`Flag of ${country.name}`} />
       <CountryInfo>
         <CountryTitle>{country.name}</CountryTitle>

@@ -68,7 +68,7 @@ const ThemeToggler = () => {
       <Label htmlFor="chk" checked={checked}>
         <i className="fas fa-moon"></i>
         <i className="fas fa-sun"></i>
-        <div className="ball"></div>
+        <i className="ball"></i>
       </Label>
     </div>
   );

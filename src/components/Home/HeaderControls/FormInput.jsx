@@ -54,6 +54,8 @@ const FormInput = () => {
         type="text"
         placeholder="Search for a country..."
         value={searchInput}
+        name="search"
+        aria-label="Search Countries"
         onChange={handleSearchInputChange}
       />
     </FormInputWrapper>
