@@ -48,7 +48,7 @@ const FormInput = () => {
 
   return (
     <FormInputWrapper>
-      <i className="fas fa-search"></i>
+      <i className="fas fa-search" aria-hidden="true"></i>
       <input
         type="text"
         placeholder="Search for a country..."

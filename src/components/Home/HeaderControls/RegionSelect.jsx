@@ -18,6 +18,10 @@ const RegionSelectWrapper = styled.div`
   @media screen and (max-width: 768px) {
     width: 100%;
   }
+
+  @media screen and (max-width: 500px) {
+    width: 250px;
+  }
 `;
 
 const SelectItems = styled.div`
@@ -87,7 +91,7 @@ const RegionSelect = () => {
   return (
     <RegionSelectWrapper onClick={() => setOpened(!opened)} ref={node}>
       <p>{selected || "Filter by Region"}</p>
-      <i className="fas fa-chevron-down"></i>
+      <i className="fas fa-chevron-down" aria-hidden="true"></i>
       <SelectItems opened={opened}>
         <ul>
           <li onClick={handleSelectionChange}>Africa</li>

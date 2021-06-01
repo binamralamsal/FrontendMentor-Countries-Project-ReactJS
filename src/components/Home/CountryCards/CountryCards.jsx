@@ -8,6 +8,7 @@ import CountryCard from "./CountryCard";
 const CountryCardsWrapper = styled(Container)`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  padding: 0 20px;
   gap: 60px;
 
   @media screen and (max-width: 1200px) {
@@ -24,6 +25,7 @@ const CountryCardsWrapper = styled(Container)`
 
   @media screen and (max-width: 500px) {
     grid-template-columns: repeat(1, 1fr);
+    padding: 0 60px;
   }
 `;
 
