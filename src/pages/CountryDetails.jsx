@@ -5,6 +5,12 @@ import styled from "styled-components";
 import Container from "../UI/Container";
 import Loader from "../UI/Loader";
 
+const CountryDetailsContainer = styled(Container)`
+  @media screen and (max-width: 700px) {
+    padding: 30px;
+  }
+`;
+
 const Button = styled(Link)`
   background: var(--main-color);
   padding: 5px 30px;
@@ -23,6 +29,10 @@ const BackButton = styled(Button)`
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
   display: inline-block;
   margin: 30px 0 50px 0;
+
+  @media screen and (max-width: 700px) {
+    margin: 15px 0 50px 0;
+  }
 `;
 
 const DetailsContainer = styled.div`
@@ -30,6 +40,14 @@ const DetailsContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   gap: 100px;
+
+  @media screen and (max-width: 900px) {
+    gap: 20px;
+  }
+
+  @media screen and (max-width: 700px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const CountryTitle = styled.p`
@@ -46,6 +64,10 @@ const InfoContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   line-height: 2;
+
+  @media screen and (max-width: 900px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const BorderCountries = styled.div`
@@ -60,6 +82,11 @@ const Flag = styled.img`
   width: 100%;
   height: 440px;
   object-fit: contain;
+
+  @media screen and (max-width: 700px) {
+    height: auto;
+    margin: 20px 0;
+  }
 `;
 
 const CountryDetails = () => {
@@ -102,10 +129,8 @@ const CountryDetails = () => {
     setBorderCountries();
   }, [country.borders]);
 
-  console.log(country.borders);
-
   return (
-    <Container>
+    <CountryDetailsContainer>
       <BackButton to="/">Back</BackButton>
       {!isLoading ? (
         <DetailsContainer>
@@ -168,7 +193,7 @@ const CountryDetails = () => {
       ) : (
         <Loader />
       )}
-    </Container>
+    </CountryDetailsContainer>
   );
 };
 
