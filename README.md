@@ -61,8 +61,8 @@ If I want to continue in this project in future then I would like to implement s
 
 Hi, my name is Binamra Lamsal. I created this project with React JS after learning it as a practice. I know my project solution may not be ideal solution but I tried my best to make it best as I can. Feel free to provide me suggestions.
 
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/binamracode)
-- Twitter - [@yourusername](https://www.twitter.com/binamralamsal)
+- Frontend Mentor - [@binamracode](https://www.frontendmentor.io/profile/binamracode)
+- Twitter - [@binamralamsal](https://www.twitter.com/binamralamsal)
 
 ## Credits
 
