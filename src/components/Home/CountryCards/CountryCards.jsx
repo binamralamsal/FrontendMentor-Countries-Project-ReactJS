@@ -55,13 +55,13 @@ const CountryCards = () => {
       <CountryCardsWrapper>
         {paginatedCountries.map((country) => (
           <CountryCard
-            key={country.name}
+            key={country.name.common}
             country={{
-              name: country.name,
+              name: country.name.common,
               population: country.population,
               region: country.region,
               capital: country.capital,
-              flag: country.flag,
+              flags: country.flags,
             }}
           />
         ))}
