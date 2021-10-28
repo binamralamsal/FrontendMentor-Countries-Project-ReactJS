@@ -101,7 +101,7 @@ const CountryDetails = () => {
       setIsLoading(true);
       setBorders([]);
       const response = await fetch(
-        `https://restcountries.eu/rest/v2/name/${params.name}?fullText=true&fields=name;population;region;subregion;capital;topLevelDomain;currencies;languages;borders;flag;nativeName;`
+        `https://restcountries.com/v3.1/name/${params.name}?fullText=true&fields=name,population,region,subregion,capital,tld,currencies,languages,borders,flags`
       );
       const data = await response.json();
 
@@ -116,8 +116,8 @@ const CountryDetails = () => {
     const setBorderCountries = async () => {
       if (country.borders && country.borders.length !== 0) {
         const response = await fetch(
-          `https://restcountries.eu/rest/v2/alpha/?codes=${country.borders.join(
-            ";"
+          `https://restcountries.com/v3.1/alpha?codes=${country.borders.join(
+            ","
           )}&fields=name;`
         );
         const data = await response.json();
@@ -136,14 +136,20 @@ const CountryDetails = () => {
       </BackButton>
       {!isLoading ? (
         <DetailsContainer>
-          <Flag src={country.flag} alt={`${country.name}'s flag`}></Flag>
+          <Flag
+            src={country.flags.svg}
+            alt={`${country.name.common}'s flag`}
+          ></Flag>
           <div>
-            <CountryTitle>{country.name}</CountryTitle>
+            <CountryTitle>{country.name.common}</CountryTitle>
 
             <InfoContainer>
               <div style={{ marginBottom: "30px" }}>
                 <p>
-                  <InfoTopic>Native Name:</InfoTopic> {country.nativeName}
+                  <InfoTopic>Native Names:</InfoTopic>{" "}
+                  {Object.keys(country.name.nativeName)
+                    .map((key) => country.name.nativeName[key].common)
+                    .join(", ")}
                 </p>
                 <p>
                   <InfoTopic>Population: </InfoTopic>
@@ -163,18 +169,18 @@ const CountryDetails = () => {
               <div>
                 <p>
                   <InfoTopic>Top Level Domain: </InfoTopic>
-                  {country.topLevelDomain}
+                  {country.tld[0]}
                 </p>
                 <p>
                   <InfoTopic>Currencies: </InfoTopic>
-                  {country.currencies
-                    .map((currency) => currency.name)
+                  {Object.keys(country.currencies)
+                    .map((key) => country.currencies[key].name)
                     .join(", ")}
                 </p>
                 <p>
                   <InfoTopic>Languages: </InfoTopic>
-                  {country.languages
-                    .map((language) => language.name)
+                  {Object.keys(country.languages)
+                    .map((key) => country.languages[key])
                     .join(", ")}
                 </p>
               </div>
@@ -184,8 +190,8 @@ const CountryDetails = () => {
               <BorderCountries>
                 <InfoTopic>Border Countries: </InfoTopic>
                 {borders.map((border) => (
-                  <Button key={border} to={`/${border}`}>
-                    {border}
+                  <Button key={border.common} to={`/${border.common}`}>
+                    {border.common}
                   </Button>
                 ))}
               </BorderCountries>

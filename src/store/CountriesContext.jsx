@@ -16,7 +16,7 @@ const CountriesProvider = ({ children }) => {
   useEffect(() => {
     const fetchCountries = async () => {
       const response = await fetch(
-        "https://restcountries.eu/rest/v2/all?fields=name;population;region;capital;flag;"
+        "https://restcountries.com/v3.1/all?fields=name,population,region,capital,flags,"
       );
       const data = await response.json();
 
@@ -29,9 +29,10 @@ const CountriesProvider = ({ children }) => {
 
   useEffect(() => {
     let data = countries.filter((country) => {
+
       const partOfRegion = region ? country.region === region : true;
       const partOfSearch = searchInput
-        ? country.name.toLowerCase().search(searchInput.toLowerCase()) !== -1
+        ? country.name.official.toLowerCase().search(searchInput.toLowerCase()) !== -1
         : true;
 
       return partOfRegion && partOfSearch;
