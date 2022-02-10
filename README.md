@@ -67,3 +67,5 @@ Hi, my name is Binamra Lamsal. I created this project with React JS after learni
 ## Credits
 
 - [Checkbox for Dark Mode - Florin Pop](https://codepen.io/FlorinPop17/pen/XWWZYYG)
+- [@babit-pandey - Babit Pandey](https://github.com/babit-pandey)
+  - Thanks to Babit Pandey for upgrading API to use v3.1 as old version was not working.
