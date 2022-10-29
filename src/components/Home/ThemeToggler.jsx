@@ -7,7 +7,7 @@ const Checkbox = styled.input`
 `;
 
 const Label = styled.label`
-  background-color: #111;
+  background-color: var(--dark-mode-background);
   border-radius: 50px;
   cursor: pointer;
   display: flex;
