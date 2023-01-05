@@ -1,4 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  MouseEvent as ReactMouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useLocation, useNavigate } from "react-router";
 import styled from "styled-components";
 
@@ -24,7 +29,7 @@ const RegionSelectWrapper = styled.div`
   }
 `;
 
-const SelectItems = styled.div`
+const SelectItems = styled.div<{ opened: boolean }>`
   top: 110%;
   position: absolute;
   background-color: var(--elements);
@@ -62,10 +67,10 @@ const RegionSelect = () => {
   const queries = new URLSearchParams(location.search);
   const selected = queries.get("region");
 
-  const node = useRef();
+  const node = useRef<HTMLDivElement>(null);
 
-  const handleClick = (e) => {
-    if (node.current.contains(e.target)) {
+  const handleClick = (e: MouseEvent) => {
+    if (node?.current?.contains(e.target as Node)) {
       return;
     }
     setOpened(false);
@@ -83,9 +88,9 @@ const RegionSelect = () => {
     };
   }, [opened]);
 
-  const handleSelectionChange = (event) => {
-    queries.set("region", event.target.innerText);
-    navigate({ pathName: "/", search: queries.toString() });
+  const handleSelectionChange = (event: ReactMouseEvent<HTMLLIElement>) => {
+    queries.set("region", (event.target as HTMLElement).innerText);
+    navigate({ pathname: "/", search: queries.toString() });
   };
 
   return (

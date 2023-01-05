@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { CountryFlag } from "../../../types/types";
 
 const Card = styled(Link)`
   background-color: var(--elements);
@@ -35,7 +36,17 @@ const Flag = styled.img`
   object-fit: cover;
 `;
 
-const CountryCard = ({ country }) => {
+const CountryCard = ({
+  country,
+}: {
+  country: {
+    name: string;
+    population: number;
+    region: string;
+    capital: string;
+    flags: CountryFlag;
+  };
+}) => {
   return (
     <Card to={`/${country.name.toLowerCase().split(" ").join("%20")}`}>
       <Flag src={country.flags.svg} alt={`Flag of ${country.name}`} />

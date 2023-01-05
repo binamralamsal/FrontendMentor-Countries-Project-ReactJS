@@ -27,7 +27,7 @@ const Label = styled.label`
     left: 2px;
     height: 22px;
     width: 22px;
-    transform: ${(props) =>
+    transform: ${(props: { checked: boolean }) =>
       props.checked ? "translateX(24px)" : "translateX(0)"};
     transition: transform 0.2s linear;
   }
@@ -52,7 +52,7 @@ const ThemeToggler = () => {
     if (checked) document.body.classList.add("dark");
     else document.body.classList.remove("dark");
 
-    localStorage.setItem("darkMode", checked);
+    localStorage.setItem("darkMode", JSON.stringify(checked));
     setChecked((prev) => !prev);
   };
 
@@ -62,7 +62,7 @@ const ThemeToggler = () => {
         className="checkbox"
         type="checkbox"
         id="chk"
-        value={checked}
+        value={+checked}
         onChange={handleChangeMode}
       />
       <Label htmlFor="chk" checked={checked}>

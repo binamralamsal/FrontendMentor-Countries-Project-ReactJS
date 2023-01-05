@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Country, CountryName } from "../types/types";
 import Container from "../UI/Container";
 import Loader from "../UI/Loader";
 
@@ -92,9 +93,9 @@ const Flag = styled.img`
 const CountryDetails = () => {
   const params = useParams();
 
-  const [country, setCountry] = useState({});
+  const [country, setCountry] = useState<Country>();
   const [isLoading, setIsLoading] = useState(true);
-  const [borders, setBorders] = useState([]);
+  const [borders, setBorders] = useState<CountryName[]>([]);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -103,7 +104,7 @@ const CountryDetails = () => {
       const response = await fetch(
         `https://restcountries.com/v3.1/name/${params.name}?fullText=true&fields=name,population,region,subregion,capital,tld,currencies,languages,borders,flags`
       );
-      const data = await response.json();
+      const data = (await response.json()) as Country[];
 
       setCountry(data[0]);
       setIsLoading(false);
@@ -114,27 +115,28 @@ const CountryDetails = () => {
 
   useEffect(() => {
     const setBorderCountries = async () => {
-      if (country.borders && country.borders.length !== 0) {
+      if (country?.borders && country?.borders.length !== 0) {
         const response = await fetch(
           `https://restcountries.com/v3.1/alpha?codes=${country.borders.join(
             ","
           )}&fields=name;`
         );
-        const data = await response.json();
+        const data = (await response.json()) as Country[];
+        const filtered = data.map((d) => d.name);
 
         setBorders(data.map((d) => d.name));
       }
     };
 
     setBorderCountries();
-  }, [country.borders]);
+  }, [country?.borders]);
 
   return (
     <CountryDetailsContainer>
       <BackButton to="/">
         <i className="fas fa-arrow-left"></i> Back
       </BackButton>
-      {!isLoading ? (
+      {country ? (
         <DetailsContainer>
           <Flag
             src={country.flags.svg}

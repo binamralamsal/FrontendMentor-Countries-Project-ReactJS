@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import { useLocation, useNavigate } from "react-router";
 import styled from "styled-components";
 
@@ -40,11 +41,11 @@ const FormInput = () => {
   const queries = new URLSearchParams(location.search);
   const searchInput = queries.get("search") || "";
 
-  const handleSearchInputChange = (event) => {
+  const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value) queries.set("search", event.target.value);
     else queries.delete("search");
 
-    navigate({ pathName: "/", search: queries.toString() });
+    navigate({ pathname: "/", search: queries.toString() });
   };
 
   return (
