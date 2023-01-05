@@ -1,4 +1,4 @@
-import { useHistory, useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import styled from "styled-components";
 
 const FormInputWrapper = styled.div`
@@ -34,7 +34,7 @@ const FormInputWrapper = styled.div`
 `;
 
 const FormInput = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const queries = new URLSearchParams(location.search);
@@ -44,7 +44,7 @@ const FormInput = () => {
     if (event.target.value) queries.set("search", event.target.value);
     else queries.delete("search");
 
-    history.push({ pathName: "/", search: queries.toString() });
+    navigate({ pathName: "/", search: queries.toString() });
   };
 
   return (

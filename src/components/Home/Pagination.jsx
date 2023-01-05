@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useHistory, useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import styled from "styled-components";
 import { CountriesContext } from "../../store/CountriesContext";
 
@@ -31,7 +31,7 @@ const PageLink = styled.p`
 `;
 
 const Pagination = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const queries = new URLSearchParams(location.search);
   const pageNumber = +queries.get("page_no") || 1;
@@ -59,7 +59,7 @@ const Pagination = () => {
   const handlePaginationChange = (pageNumber) => {
     if (pageNumber !== 1) queries.set("page_no", pageNumber);
     else queries.delete("page_no");
-    history.push({ pathName: "/", search: queries.toString() });
+    navigate({ pathname: "/", search: queries.toString() });
   };
 
   return (

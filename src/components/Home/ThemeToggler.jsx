@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 const Checkbox = styled.input`
@@ -42,19 +42,19 @@ const Label = styled.label`
 `;
 
 const ThemeToggler = () => {
-  const [checked, setChecked] = useState(true);
-
-  useEffect(() => {
+  const [checked, setChecked] = useState(() => {
     const darkModeActivated = localStorage.getItem("darkMode") === "true";
-    setChecked(!darkModeActivated);
-  }, []);
+    if (darkModeActivated) document.body.classList.add("dark");
+    return !darkModeActivated;
+  });
 
-  useEffect(() => {
-    if (!checked) document.body.classList.add("dark");
+  const handleChangeMode = () => {
+    if (checked) document.body.classList.add("dark");
     else document.body.classList.remove("dark");
 
-    localStorage.setItem("darkMode", !checked);
-  }, [checked]);
+    localStorage.setItem("darkMode", checked);
+    setChecked((prev) => !prev);
+  };
 
   return (
     <div>
@@ -63,7 +63,7 @@ const ThemeToggler = () => {
         type="checkbox"
         id="chk"
         value={checked}
-        onChange={() => setChecked(!checked)}
+        onChange={handleChangeMode}
       />
       <Label htmlFor="chk" checked={checked}>
         <i className="fas fa-moon"></i>

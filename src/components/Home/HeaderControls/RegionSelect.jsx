@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
-import { useHistory, useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+import styled from "styled-components";
 
 const RegionSelectWrapper = styled.div`
   background-color: var(--elements);
@@ -56,7 +56,7 @@ const SelectItems = styled.div`
 const RegionSelect = () => {
   const [opened, setOpened] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const queries = new URLSearchParams(location.search);
@@ -85,7 +85,7 @@ const RegionSelect = () => {
 
   const handleSelectionChange = (event) => {
     queries.set("region", event.target.innerText);
-    history.push({ pathName: "/", search: queries.toString() });
+    navigate({ pathName: "/", search: queries.toString() });
   };
 
   return (
