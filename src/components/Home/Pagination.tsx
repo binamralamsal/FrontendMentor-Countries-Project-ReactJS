@@ -1,7 +1,6 @@
-import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router";
 import styled from "styled-components";
-import { CountriesContext } from "../../store/CountriesContext";
+import { useCountries } from "../../hooks/useCountries";
 
 const PaginationWrapper = styled.div`
   text-align: center;
@@ -36,8 +35,8 @@ const Pagination = () => {
   const queries = new URLSearchParams(location.search);
   const pageNumber = +(queries.get("page_no") || 1);
 
-  const { filteredCountries: countries } = useContext(CountriesContext);
-  const totalPage = Math.ceil(countries.length / 8);
+  const { data: countries } = useCountries();
+  const totalPage = Math.ceil(countries?.length || 8 / 8);
 
   let firstIndex;
   let lastIndex;
@@ -80,7 +79,7 @@ const Pagination = () => {
           {page}
         </PageLink>
       ))}{" "}
-      {pageNumber !== totalPage && countries.length !== 0 && (
+      {pageNumber !== totalPage && countries?.length !== 0 && (
         <PageLink
           onClick={() => handlePaginationChange(totalPage)}
           className="active"

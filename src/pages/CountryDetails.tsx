@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -93,43 +93,31 @@ const Flag = styled.img`
 const CountryDetails = () => {
   const params = useParams();
 
-  const [country, setCountry] = useState<Country>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [borders, setBorders] = useState<CountryName[]>([]);
-
-  useEffect(() => {
-    const fetchCountries = async () => {
-      setIsLoading(true);
-      setBorders([]);
-      const response = await fetch(
+  const { data: country, isLoading } = useQuery<Country>(
+    [`country`, params.name],
+    () =>
+      fetch(
         `https://restcountries.com/v3.1/name/${params.name}?fullText=true&fields=name,population,region,subregion,capital,tld,currencies,languages,borders,flags`
-      );
-      const data = (await response.json()) as Country[];
+      )
+        .then((d) => d.json())
+        .then((d) => d[0])
+  );
 
-      setCountry(data[0]);
-      setIsLoading(false);
-    };
-
-    fetchCountries();
-  }, [params.name]);
-
-  useEffect(() => {
-    const setBorderCountries = async () => {
-      if (country?.borders && country?.borders.length !== 0) {
-        const response = await fetch(
-          `https://restcountries.com/v3.1/alpha?codes=${country.borders.join(
-            ","
-          )}&fields=name;`
-        );
-        const data = (await response.json()) as Country[];
-        const filtered = data.map((d) => d.name);
-
-        setBorders(data.map((d) => d.name));
-      }
-    };
-
-    setBorderCountries();
-  }, [country?.borders]);
+  const { data: borders } = useQuery<CountryName[]>(
+    [`country`, country?.borders],
+    () =>
+      fetch(
+        `https://restcountries.com/v3.1/alpha?codes=${country?.borders.join(
+          ","
+        )}&fields=name;`
+      )
+        .then((d) => d.json())
+        .then((data) => data.map((d: { name: string }) => d.name)),
+    {
+      refetchOnMount: false,
+      enabled: Boolean(country?.borders && country?.borders.length !== 0),
+    }
+  );
 
   return (
     <CountryDetailsContainer>
@@ -191,7 +179,7 @@ const CountryDetails = () => {
             {country.borders.length !== 0 && (
               <BorderCountries>
                 <InfoTopic>Border Countries: </InfoTopic>
-                {borders.map((border) => (
+                {borders?.map((border) => (
                   <Button key={border.common} to={`/${border.common}`}>
                     {border.common}
                   </Button>

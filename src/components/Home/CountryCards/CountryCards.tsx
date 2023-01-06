@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
-import { CountriesContext } from "../../../store/CountriesContext";
+import { useCountries } from "../../../hooks/useCountries";
 import { Country } from "../../../types/types";
 import Container from "../../../UI/Container";
 import CountryCard from "./CountryCard";
@@ -36,25 +35,20 @@ const ResultsInfo = styled.p`
 `;
 
 const CountryCards = () => {
-  const [paginatedCountries, setPaginatedCountries] = useState<Country[]>([]);
-  const { filteredCountries: countries } = useContext(CountriesContext);
+  const { data: countries } = useCountries();
 
   const location = useLocation();
   const queries = new URLSearchParams(location.search);
   const pageNumber = +(queries.get("page_no") || 1);
 
-  useEffect(() => {
-    let data = [...countries];
-
-    if (pageNumber) data = data.slice(pageNumber * 8 - 8, pageNumber * 8);
-    else data = data.slice(0, 8);
-    setPaginatedCountries(data);
-  }, [pageNumber, countries]);
+  const data = pageNumber
+    ? countries?.slice(pageNumber * 8 - 8, pageNumber * 8)
+    : countries?.slice(0, 8);
 
   return (
     <>
       <CountryCardsWrapper>
-        {paginatedCountries.map((country: Country) => (
+        {data?.map((country: Country) => (
           <CountryCard
             key={country.name.common}
             country={{
@@ -67,7 +61,7 @@ const CountryCards = () => {
           />
         ))}
       </CountryCardsWrapper>
-      <ResultsInfo>{countries.length} results found</ResultsInfo>
+      <ResultsInfo>{countries?.length} results found</ResultsInfo>
     </>
   );
 };
